@@ -6,7 +6,8 @@ import Header from './components/Header';
 
 
 const App = () => {
-  const [notes, setNotes] = useState([
+  const [notes, setNotes] = useState(JSON.parse(
+    localStorage.getItem('react-notes-app-data')) ?? [
     {
       id: nanoid(),
       text: "this is note number one",
@@ -33,30 +34,31 @@ const App = () => {
 
   const [darkMode, setDarkMode] = useState(false);
 
-  useEffect(() => {
-    const savedNotes = JSON.parse(
-      localStorage.getItem('react-notes-app-data')
-    );
-    if (savedNotes) {
-      setNotes(savedNotes);
-    }
+  
+  
+  // useEffect(() => {
+	// 	const savedNotes = JSON.parse(
+	// 		localStorage.getItem('react-notes-app-data')
+	// 	);
 
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem(
-      'react-notes-app-data',
-      JSON.stringify(notes)
-    );
-  }, [notes]);
+	// 	if (savedNotes) {
+	// 		setNotes(savedNotes);
+	// 	}
+	// }, []);
+	useEffect(() => {
+		localStorage.setItem(
+			'react-notes-app-data',
+			JSON.stringify(notes)
+		);
+	}, [notes]);
 
   const addNote = (text) => {
     const date = new Date();
     const newNote = {
       id: nanoid(),
       text: text,
-      date: date.toLocaleDateString()
-    }
+      date: date.toLocaleDateString(),
+    };
     const newNotes = [...notes, newNote];
     setNotes(newNotes);
 
@@ -65,7 +67,7 @@ const App = () => {
   const deleteNote = (id) => {
     const newNotes = notes.filter((note) => note.id !== id);
     setNotes(newNotes);
-  }
+  };
 
   return (
     <div className={`${darkMode && 'dark-mode'}`}>

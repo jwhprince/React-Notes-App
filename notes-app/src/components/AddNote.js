@@ -4,15 +4,15 @@
      const [noteText, setNoteText] = useState('');
      const characterLimit = 200;
        
-     const handleChange = (e) => {
-         if(characterLimit - e.target.value.length >= 0){
+     const handleChange = (event) => {
+         if(characterLimit - event.target.value.length >= 0){
 
-             setNoteText(e.target.value);
+             setNoteText(event.target.value);
          }
      };
 
      const handleSaveClick = () => {
-         if(noteText.trim().length > 0){
+         if(noteText.trim().length > 0) {
              handleAddNote(noteText);
              setNoteText('');
          }
